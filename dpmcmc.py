@@ -218,7 +218,7 @@ def run_dpmcmc(kernel, n_iterations, initial_state=None):
         initial_state: Initial cluster assignments (default: all assigned to cluster 0).
 
     Returns:
-
+        Tensor of shape (n_iterations, n_data) containing the cluster assignments at each iteration.
     """
     if initial_state is None:
         initial_state = tf.zeros(kernel.n_items, dtype=tf.int32)
