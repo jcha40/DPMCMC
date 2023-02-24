@@ -10,8 +10,6 @@ import tensorflow as tf
 import scipy.stats
 
 # Generate some data
-np.random.seed(0)
-tf.random.set_seed(0)
 # x-values for beta distributions
 x = np.expand_dims(np.linspace(.05, .95, 100), (0, 1))
 # 3 clusters each with 5 beta distributed components and 100 samples [100 samples, 5 distributions, 100 x-values]
@@ -35,14 +33,10 @@ trace = run_dpmcmc(dp_engine, 100)
 ### Example 2
 ```python
 from DPMCMC import MultinomialKernel, run_dpmcmc
-import numpy as np
 import tensorflow as tf
 import scipy.stats
 
 # Generate some data
-np.random.seed(0)
-tf.random.set_seed(0)
-
 # 3 clusters each drawing 50 items into 6 categories for 100 samples [100 samples, 6 categories]
 c1 = tf.convert_to_tensor(scipy.stats.multinomial.rvs(50, [.1, .1, .1, .5, .1, .1], size=100), dtype=tf.float64)
 c2 = tf.convert_to_tensor(scipy.stats.multinomial.rvs(50, [.7, .1, .05, .05, .05, .05], size=100), dtype=tf.float64)
