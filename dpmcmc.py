@@ -68,7 +68,7 @@ class DPMCMCKernel(tfp.mcmc.TransitionKernel):
             item = self.data[i:i + 1]
             # remove current item from its current cluster
             current_state = tf.tensor_scatter_nd_update(current_state, [[i]], [-1])
-            # compute number items in each cluster
+            # compute number of items in each cluster
             items_per_cluster = tf.reduce_sum(tf.cast(tf.expand_dims(current_state, 1) == tf.expand_dims(tf.range(self.max_clusters), 0), tf.int32), axis=0)
             # compute number of unoccupied clusters
             n_unoccupied_clusters = tf.reduce_sum(tf.cast(items_per_cluster == 0, tf.float64))
