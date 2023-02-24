@@ -8,7 +8,8 @@ import math
 import logging
 import itertools
 import collections
-import input_functions
+from .input_functions import join_cluster_multinomial, new_cluster_multinomial, cluster_prior_multinomial, \
+    join_cluster_dot_product, new_cluster_dot_product, cluster_prior_dot_product
 
 KernelResults = collections.namedtuple('KernelResults', [])
 
@@ -194,9 +195,8 @@ class MultinomialKernel(DPMCMCKernel):
     being the number of data points and the second dimension being the number of categories.
     """
     def __init__(self, data, max_clusters=30, r=3., mu=3., dtype=tf.float64, seed=None, verbose=True):
-        super(MultinomialKernel, self).__init__(data, input_functions.join_cluster_multinomial,
-            input_functions.new_cluster_multinomial, input_functions.cluster_prior_multinomial,
-            max_clusters=max_clusters, r=r, mu=mu, dtype=dtype, seed=seed, verbose=verbose)
+        super(MultinomialKernel, self).__init__(data, join_cluster_multinomial, new_cluster_multinomial,
+            cluster_prior_multinomial, max_clusters=max_clusters, r=r, mu=mu, dtype=dtype, seed=seed, verbose=verbose)
 
 class DotProductKernel(DPMCMCKernel):
     """
@@ -205,9 +205,8 @@ class DotProductKernel(DPMCMCKernel):
     product.
     """
     def __init__(self, data, max_clusters=30, r=3., mu=3., dtype=tf.float64, seed=None, verbose=True):
-        super(DotProductKernel, self).__init__(data, input_functions.join_cluster_dot_product,
-            input_functions.new_cluster_dot_product, input_functions.cluster_prior_dot_product,
-            max_clusters=max_clusters, r=r, mu=mu, dtype=dtype, seed=seed, verbose=verbose)
+        super(DotProductKernel, self).__init__(data, join_cluster_dot_product, new_cluster_dot_product,
+            cluster_prior_dot_product, max_clusters=max_clusters, r=r, mu=mu, dtype=dtype, seed=seed, verbose=verbose)
 
 def run_dpmcmc(kernel, n_iterations, initial_state=None):
     """
