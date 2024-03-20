@@ -10,7 +10,7 @@ def join_cluster_multinomial(feature_shape=None, dtype=None):
 
 def new_cluster_multinomial(feature_shape=None, dtype=None):
     def new_cluster(item):
-        return tfp.distributions.Multinomial(tf.reduce_sum(item), tf.ones(feature_shape[0], dtype=dtype)).log_prob(item)
+        return tfp.distributions.DirichletMultinomial(tf.reduce_sum(item), tf.ones(feature_shape[0], dtype=dtype)).log_prob(item)
     return new_cluster
 
 def cluster_prior_multinomial(feature_shape=None, dtype=None, max_clusters=None):
